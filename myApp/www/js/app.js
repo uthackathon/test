@@ -1,5 +1,5 @@
 // Ionic Starter App
-
+//keita writes 2nd
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -55,7 +55,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-dash.html',
         controller: 'SearchFriendsCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -65,7 +65,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -77,7 +77,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-friends.html',
         controller: 'FriendsCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -86,14 +86,14 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
 
 
 
-  
+
 
   .state('tab.account', {
     url: '/account',

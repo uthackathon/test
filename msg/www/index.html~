@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+ 
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+ 
+    <!--FIrebase-->
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <!--AngularFire-->
+    <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+   
+  </head>
+  <body>
+  <input type="text" id="msg_input" style="width:200px;" />
+  <button onclick="publishMessage();">語る</button>
+  <div id="msg"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    // 1.イベントとコールバックの定義
+    var socketio = io.connect('http://localhost:8080');
+
+    socketio.on("connected", function(name) {});
+    socketio.on("publish", function (data) { addMessage(data.value); });
+    socketio.on("disconnect", function () {});
+
+    // 2.イベントに絡ませる関数の定義
+    function start(name) {
+      socketio.emit("connected", name);
+    }
+
+    function publishMessage() {
+      var textInput = document.getElementById('msg_input');
+      var msg = "[" + myName + "] " + textInput.value;
+      socketio.emit("publish", {value: msg});
+      textInput.value = '';
+    }
+
+    function addMessage (msg) {
+      var domMeg = document.createElement('div');
+      domMeg.innerHTML = new Date().toLocaleTimeString() + ' ' + msg;
+      msgArea.appendChild(domMeg);
+    }
+
+    // 3.開始処理
+    var msgArea = document.getElementById("msg");
+    var myName = Math.floor(Math.random()*100) + "さん";
+    addMessage("貴方は" + myName + "として入室しました");
+    start(myName);
+  </script>
+</body>
+</html>  
+
+
+
+</html>

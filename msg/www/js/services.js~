@@ -1,8 +1,7 @@
 angular.module('chat.services', [])
 
 .factory('Socket', function(socketFactory){
-  var myIoSocket = io.connect('http://localhost.8080');//暗号化すべき？
-  //var myIoSocket = io.connect();
+  var myIoSocket = io.connect('http://chat.socket.io:1000'); //ここは暗号化？
   mySocket = socketFactory({
     ioSocket: myIoSocket
   });
@@ -149,28 +148,4 @@ angular.module('chat.services', [])
       return null;
     }
   };
-})
-
-//自作部分
-.factory('Message',function(FURL,$firebaseArray){
-  var ref = new Firebase(FURL);
-  var msgs = $firebaseArray(ref.child('msgs').child('msgs'));
-
-  var Msgs={
-
-    all: function(){
-      return msgs;
-    },
-
-
-    saveMsg:function(msg){
-    var newMsg={
-      message:msg
-    };
-    return msgs.$add(newMsg).then(function(){
-      console.log("add to the DB");
-    })
-    }
-  };
-    return Msgs;
 });

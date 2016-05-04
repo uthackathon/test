@@ -1,5 +1,11 @@
 
-angular.module('chat', ['ionic', 'btford.socket-io', 'chat.controllers', 'chat.services'])
+angular.module('chat', [
+  'ionic',
+  'btford.socket-io',
+  'chat.controllers',
+  'chat.services',
+  'firebase'
+  ])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -16,6 +22,8 @@ angular.module('chat', ['ionic', 'btford.socket-io', 'chat.controllers', 'chat.s
     }
   });
 })
+
+.constant('FURL','https://dayafterday.firebaseio.com/')
 
 .config(function($stateProvider, $urlRouterProvider) {
 

@@ -1,6 +1,6 @@
 angular.module('chat.controllers', [])
 
-.controller('ChatCtrl', function($scope, $stateParams, $ionicPopup, $timeout, Socket, Chat) {
+.controller('ChatCtrl', function($scope, $stateParams, $ionicPopup, $timeout, Socket, Chat, Message) {
 
   $scope.data = {};
   $scope.data.message = "";
@@ -41,7 +41,7 @@ angular.module('chat.controllers', [])
   if($stateParams.username){
     $scope.data.message = "@" + $stateParams.username;
     document.getElementById("msg-input").focus();
-  } 
+  }
 
   var sendUpdateTyping = function(){
     if (!typing) {
@@ -76,6 +76,8 @@ angular.module('chat.controllers', [])
   };
 
   $scope.sendMessage = function(msg){
+    console.log("you send a message",msg);
+    Message.saveMsg(msg);
     Chat.sendMessage(msg);
     $scope.data.message = "";
   };
@@ -90,6 +92,8 @@ angular.module('chat.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope, Chat) {
-  $scope.username = Chat.getUsername();  
+.controller('AccountCtrl', function($scope, Chat, Message) {
+  $scope.username = Chat.getUsername();
+  $scope.msgs=Message.all();
+  console.log("the msgs",$scope.msgs)
 }, true);

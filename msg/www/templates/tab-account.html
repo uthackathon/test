@@ -6,5 +6,11 @@
          Username: {{username}}
       </p>
     </div>
+    <!--自作部分　-->
+    <ion-item class="list card" ng-repeat="msg in msgs">
+      <div class ="message">
+        <h2>{{msg.message}}</h2>
+      </div>
+    </ion-item>
   </ion-content>
 </ion-view>
